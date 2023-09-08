@@ -11,22 +11,34 @@ let canvas = d3.select("#canvas")
 canvas.attr('width', width)
 canvas.attr('height', height)
 
+let xScale, yScale; // Definir xScale y yScale aquí
+
 let generateScales = () => {
   xScale = d3.scaleLinear()
              .range([padding, width - padding])
+
+  yScale = d3.scaleLinear() // Cambiado de yScaleb a yScale
+              .range([height - padding, padding]) // Cambiado el orden de los valores en el rango
 }
 
 let drawCells = () => {
 
 }
 
-let drawAxes = () => {
+let drawAxis = () => {
   let xAxis = d3.axisBottom(xScale)
 
   canvas.append('g')
         .call(xAxis)
         .attr('transform', 'translate(0,' + (height - padding) + ')')
-        
+        .attr('id', 'x-axis')
+
+  let yAxis = d3.axisLeft(yScale)
+
+  canvas.append('g')
+        .call(yAxis)
+        .attr('id', "y-axis")
+        .attr('transform', 'translate(' + padding + ', 0)')
 }
 
 fetch(link)
@@ -40,7 +52,7 @@ fetch(link)
     console.log(monthlyVariance)
     generateScales();
     drawCells();
-    drawAxes();
+    drawAxis();
   })
   .catch(function(error) {
     console.error("Error:", error);
