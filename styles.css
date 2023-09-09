@@ -9,3 +9,9 @@ body {
 #canvas {
   background-color: aliceblue;
 }
+
+#tooltip {
+  visibility: hidden;
+  height: auto;
+  width: auto;
+}
